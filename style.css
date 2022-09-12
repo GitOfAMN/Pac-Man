@@ -1,11 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Hurricane&family=Londrina+Shadow&display=swap');
+
+
 body {
     background-color: black;
     background-size: cover;
 }
 
 /* Modal  */
-.modal-body {
-    visibility: visible;
+.modal {
+    /* visibility: visible; */
     width: 50vw;
     /* height: 30vh; */
     /* max-width: 700px; */
@@ -20,22 +23,59 @@ body {
     box-shadow: 0px 0px 10px 10px blue;
     text-align: center;
     transition: opacity 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.modal-one {
     background-image: url('https://i.imgur.com/uBi6LXB.png');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
 }
 
- .lets-play {
-    margin-top: 25vh;
-    background-color: orange;
-    color: white;
- }
-
-/* .disappear {
-    display: none;
+.modal-two {
+        /* visibility: visible; */
+        width: 50vw;
+        /* height: 30vh; */
+        /* max-width: 700px; */
+        padding: 30px;
+        position: fixed;
+        top: 45%;
+        transform: translateY(-50%);
+        left:0;
+        right: 0;
+        margin: 0 auto;
+        border-radius: 4px;
+        box-shadow: 0px 0px 10px 10px blue;
+        text-align: center;
+        color: white;
+        transition: opacity 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.reappear {
-    display: block;
-} */
+ .get-started {
+    margin-top: 25vh;
+    background-color: red;
+    color: white;
+    font-family: 'Hurricane', cursive;
+    font-family: 'Londrina Shadow', cursive;
+ }
+
+ .lets-play {
+    background-color: white;
+    color: black;
+    font-family: 'Hurricane', cursive;
+    font-family: 'Londrina Shadow', cursive;
+ }
+
+.hide {
+    visibility: hidden;
+}
+
+h2 {
+    font-family: 'Hurricane', cursive;
+    font-family: 'Londrina Shadow', cursive;
+}
+
+p {
+    font-family: 'Hurricane', cursive;
+    font-family: 'Londrina Shadow', cursive;
+}
