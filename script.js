@@ -1,9 +1,19 @@
+// Calling the variables in html that are needed to to reference in JS
 const modalOne = document.querySelector('.modal-one'),
       modalTwo = document.querySelector('.modal-two'),
       button = document.querySelector('button')
 
-// when the modal button is clicked, add a class of 'hide' to the first modal to hide it and remove the class of 'hide' from the second modal to show it
+const gameBoard = document.querySelector('.game-board')
+const startGame = document.querySelector('.lets-play')
+
+
+// Calling the functions to effect the abovementioned variables
 button.addEventListener('click', (evt) => {
   modalOne.classList.add('hide');
   modalTwo.classList.remove('hide');
+})
+
+startGame.addEventListener('click', (evt) => {
+    modalTwo.classList.add('hide');
+    gameBoard.classList.remove('hide');
 })

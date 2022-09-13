@@ -79,3 +79,9 @@ p {
     font-family: 'Hurricane', cursive;
     font-family: 'Londrina Shadow', cursive;
 }
+
+/* Game Board */
+
+.game-board {
+    color: white;
+}
