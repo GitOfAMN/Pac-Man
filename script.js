@@ -3,7 +3,7 @@ const modalOne = document.querySelector('.modal-one'),
       modalTwo = document.querySelector('.modal-two'),
       button = document.querySelector('button')
 
-const gameBoard = document.querySelector('.game-board')
+const gamePage = document.querySelector('.game-page')
 const startGame = document.querySelector('.lets-play')
 
 
@@ -15,5 +15,5 @@ button.addEventListener('click', (evt) => {
 
 startGame.addEventListener('click', (evt) => {
     modalTwo.classList.add('hide');
-    gameBoard.classList.remove('hide');
+    gamePage.classList.remove('hide');
 })
