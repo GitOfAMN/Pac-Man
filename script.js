@@ -15,6 +15,7 @@ UTILITY FUNCTIONS & OTHER VARIABLES
  ***************************/
 
 canvas.width = innerWidth
+canvas.height = innerHeight
 
 
 const setShownModal = (modalNumber) => {
@@ -54,6 +55,7 @@ const map = [
     ['-', ' ', ' ', ' ', ' ', '-', ],
     ['-', ' ', '-', '-', ' ', '-', ],
     ['-', ' ', ' ', ' ', ' ', '-', ],
+    ['-', ' ', ' ', ' ', ' ', '-', ],
     ['-', '-', '-', '-', '-', '-', ]
 ]
 const boundaries = []
@@ -75,17 +77,23 @@ map.forEach((row, i) => {
     })
 })
 
-boundaries.forEach((boundary) => {
-    boundary.draw()
-})
+function animate() {
+    requestAnimationFrame(animate)
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    boundaries.forEach((boundary) => {
+        boundary.draw()
+    })
+
+    player.update()
+}
 
 // The Pac-Man
 
-class PacMan {
-    constructor() {
+class Player {
+    constructor({ position, velocity }) {
        this.position = position
        this.velocity = velocity
-       this.radius = 10
+       this.radius = 15
         
     }
 
@@ -96,9 +104,28 @@ class PacMan {
         context.fill()
         context.closePath()
     }
+
+    update() {
+       this.draw()
+       this.position.x += this.velocity.x
+       this.position.y += this.velocity.y
+    }
 }
 
+const player = new Player({
+    position: {
+        x: Boundary.width + Boundary.width / 2,
+        y: Boundary.height + Boundary.height / 2
+    },
+    velocity: {
+        x: 0,
+        y: 0
+    }
+})
 
+player.draw()
+
+animate()
 
 /***************************
 EVENT LISTENERS
@@ -115,17 +142,37 @@ document.querySelector('#one > button')
 document.querySelector('#two > button')
   .addEventListener('click', (evt) => {
     setShownModal('three')
+    canvas.style.display = 'block'
   })
 
-document.querySelector('.gamrboard > button')
-  .addEventListener('click', (evt) => {
-    setShownModal('gameboard')
-  })
+// document.querySelector('#three')
+//   .addEventListener('click', (evt) => {
+//     setShownModal('gameboard')
+//   })
 
 /* When the Button is clicked that is in the final modal make all modals disappear and make the game board visible
   */
 
-document.querySelector('#three > button')
-    .addEventListener('click', (evt) => {
-    setShownModal(null)
-  })
+// document.querySelector('#three > button')
+//     .addEventListener('click', (evt) => {
+//     setShownModal(null)
+//   })
+
+addEventListener('keydown', ({key}) => {
+    switch (key) {
+        case 'w':
+        pacman.velocity.y = -5
+        break
+        case 'a':
+        pacman.velocity.y = -5
+        break
+        case 's':
+        pacman.velocity.y = 5
+        break
+        case 'd':
+        pacman.velocity.y = 5
+        break
+    }
+
+    console.log(player.velocity)
+})
