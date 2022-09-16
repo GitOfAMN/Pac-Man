@@ -161,16 +161,16 @@ document.querySelector('#two > button')
 addEventListener('keydown', ({key}) => {
     switch (key) {
         case 'w':
-        pacman.velocity.y = -5
+        player.velocity.y = -5
         break
         case 'a':
-        pacman.velocity.y = -5
+        player.velocity.y = -5
         break
         case 's':
-        pacman.velocity.y = 5
+        player.velocity.y = 5
         break
         case 'd':
-        pacman.velocity.y = 5
+        player.velocity.y = 5
         break
     }
 
