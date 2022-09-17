@@ -25,6 +25,8 @@ const keys = {
     },
 }
 
+let lastKey = ''
+
 /***************************
 UTILITY FUNCTIONS & OTHER VARIABLES
  ***************************/
@@ -95,32 +97,6 @@ map.forEach((row, i) => {
     })
 })
 
-function animate() {
-    requestAnimationFrame(animate)
-    context.clearRect(0, 0, canvas.width, canvas.height)
-    boundaries.forEach((boundary) => {
-        boundary.draw()
-    })
-
-    player.update()
-    player.velocity.y = 0
-
-    if (keys.arrowUp.pressed) {
-        player.velocity.y = -5
-    }
-
-    if (keys.arrowDown.pressed) {
-        player.velocity.y = 5
-    }
-
-    if (keys.arrowLeft.pressed) {
-        player.velocity.x = -5
-    }
-
-    if (keys.arrowRight.pressed) {
-        player.velocity.x = 5
-    }
-}
 
 // The Pac-Man
 
@@ -160,6 +136,47 @@ const player = new Player({
 
 player.draw()
 
+function animate() {
+    requestAnimationFrame(animate)
+    context.clearRect(0, 0, canvas.width, canvas.height)
+    boundaries.forEach((boundary) => {
+        boundary.draw()
+
+// Collision Detection
+
+    if (
+      player.position.y - player.radius + player.velocity.y <= boundary.position.y + boundary.height &&
+      player.position.x + player.radius + player.velocity.x >= boundary.position.x &&
+      player.position.y + player.radius + player.velocity.y >= boundary.position.y &&
+      player.position.x - player.radius + player.velocity.x <= boundary.position.x + boundary.width
+    ) {
+        console.log('we are colliding')
+    player.velocity.x = 0
+    player.velocity.y = 0
+    }
+    })
+
+    player.update()
+    // player.velocity.y = 0
+    // player.velocity.x = 0
+
+    if (keys.arrowUp.pressed && lastKey === 'arrowUp') {
+        player.velocity.y = -5
+    }
+
+    if (keys.arrowDown.pressed && lastKey === 'arrowDown') {
+        player.velocity.y = 5
+    }
+
+    if (keys.arrowLeft.pressed && lastKey === 'arrowLeft') {
+        player.velocity.x = -5
+    }
+
+    if (keys.arrowRight.pressed && lastKey === 'arrowRight') {
+        player.velocity.x = 5
+    }
+}
+
 animate()
 
 /***************************
@@ -198,18 +215,22 @@ addEventListener('keydown', (evt) => {
     switch (evt.key) {
         case 'ArrowUp':
         keys.arrowUp.pressed = true
+        lastKey = 'arrowUp'
         break
         
         case 'ArrowLeft':
         keys.arrowLeft.pressed = true
+        lastKey = 'arrowLeft'
         break
        
         case 'ArrowDown':
         keys.arrowDown.pressed = true
+        lastKey = 'arrowDown'
         break
        
         case 'ArrowRight':
         keys.arrowRight.pressed = true
+        lastKey = 'arrowRight'
         break
     }
 })
