@@ -10,6 +10,21 @@ const canvas = document.querySelector('canvas')
 const context = canvas.getContext('2d')
 console.log(context)
 
+const keys = {
+    arrowUp: {
+        pressed: false
+    },
+    arrowLeft: {
+        pressed: false
+    },
+    arrowDown: {
+        pressed: false
+    },
+    arrowRight: {
+        pressed: false
+    },
+}
+
 /***************************
 UTILITY FUNCTIONS & OTHER VARIABLES
  ***************************/
@@ -51,12 +66,15 @@ class Boundary {
 }
 
 const map = [
-    ['-', '-', '-', '-', '-', '-', ],
-    ['-', ' ', ' ', ' ', ' ', '-', ],
-    ['-', ' ', '-', '-', ' ', '-', ],
-    ['-', ' ', ' ', ' ', ' ', '-', ],
-    ['-', ' ', ' ', ' ', ' ', '-', ],
-    ['-', '-', '-', '-', '-', '-', ]
+    ['-', '-', '-', '-', '-', '-', '-','-', ],
+    ['-', ' ', ' ', ' ', ' ', ' ', ' ','-', ],
+    ['-', ' ', '-', '-', ' ', ' ', ' ','-', ],
+    ['-', ' ', ' ', ' ', ' ', ' ', ' ','-', ],
+    ['-', ' ', ' ', ' ', ' ', ' ', ' ','-', ],
+    ['-', ' ', ' ', ' ', ' ', ' ', ' ','-', ],
+    ['-', ' ', ' ', ' ', ' ', ' ', ' ','-', ],
+    ['-', ' ', ' ', ' ', ' ', ' ', ' ','-', ],
+    ['-', '-', '-', '-', '-', '-', '-','-', ]
 ]
 const boundaries = []
 
@@ -85,6 +103,23 @@ function animate() {
     })
 
     player.update()
+    player.velocity.y = 0
+
+    if (keys.arrowUp.pressed) {
+        player.velocity.y = -5
+    }
+
+    if (keys.arrowDown.pressed) {
+        player.velocity.y = 5
+    }
+
+    if (keys.arrowLeft.pressed) {
+        player.velocity.x = -5
+    }
+
+    if (keys.arrowRight.pressed) {
+        player.velocity.x = 5
+    }
 }
 
 // The Pac-Man
@@ -158,21 +193,44 @@ document.querySelector('#two > button')
 //     setShownModal(null)
 //   })
 
-addEventListener('keydown', ({key}) => {
-    switch (key) {
-        case 'w':
-        player.velocity.y = -5
+addEventListener('keydown', (evt) => {
+    evt.preventDefault()
+    switch (evt.key) {
+        case 'ArrowUp':
+        keys.arrowUp.pressed = true
         break
-        case 'a':
-        player.velocity.y = -5
+        
+        case 'ArrowLeft':
+        keys.arrowLeft.pressed = true
         break
-        case 's':
-        player.velocity.y = 5
+       
+        case 'ArrowDown':
+        keys.arrowDown.pressed = true
         break
-        case 'd':
-        player.velocity.y = 5
+       
+        case 'ArrowRight':
+        keys.arrowRight.pressed = true
         break
     }
+})
 
-    console.log(player.velocity)
+addEventListener('keyup', (evt) => {
+    evt.preventDefault()
+    switch (evt.key) {
+        case 'ArrowUp':
+        keys.arrowUp.pressed = false
+        break
+
+        case 'ArrowLeft':
+        keys.arrowLeft.pressed = false
+        break
+        
+        case 'ArrowDown':
+        keys.arrowDown.pressed = false
+        break
+        
+        case 'ArrowRight':
+        keys.arrowRight.pressed = false
+        break
+    }
 })
