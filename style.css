@@ -15,6 +15,8 @@ body {
 
 canvas {
     display: none;
+    border: solid;
+    color: white;
 }
 
 /* Modal  */
@@ -69,10 +71,6 @@ canvas {
     display: none;
 }
 
-/* #three {
-    display: block;
-} */
-
  .get-started {
     margin-top: 25vh;
     background-color: red;
@@ -90,9 +88,7 @@ canvas {
     border-radius: 25px;
  }
 
-/* .hide {
-    visibility: hidden;
-} */
+
 
 h2 {
     font-family: 'Hurricane', cursive;
