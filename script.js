@@ -261,13 +261,13 @@ function animate() {
                 }
             }
         }
-        
+
         pellets.forEach(pellet => {
             pellet.draw()
 
-           if (Math.hypot(pellet.position.x - player.position.x, pellet.position.y - player.position.y) < pellet.radius + player.radius) {
-            console.log('touching')
-           }
+            if (Math.hypot(pellet.position.x - player.position.x, pellet.position.y - player.position.y) < pellet.radius + player.radius) {
+                console.log('touching')
+            }
         })
 
         boundaries.forEach((boundary) => {
@@ -303,6 +303,13 @@ document.querySelector('#two > button')
         setShownModal('three')
         canvas.style.display = 'block'
     })
+
+// document.querySelector('#three > button')
+//     .addEventListener('click', (evt) => {
+//         setShownModal(null)
+//         document.querySelector('.gameboard').style.display = 'block'
+//         canvas.style.display = 'block'
+//     })
 
 addEventListener('keydown', (evt) => {
     evt.preventDefault()
