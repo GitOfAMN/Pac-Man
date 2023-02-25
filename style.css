@@ -28,7 +28,7 @@ canvas {
     position: fixed;
     top: 45%;
     transform: translateY(-50%);
-    left:0;
+    left: 0;
     right: 0;
     margin: 0 auto;
     border-radius: 4px;
@@ -46,47 +46,45 @@ canvas {
 }
 
 #two {
-       display: none;
+    display: none;
     /* visibility: visible; */
-        width: 50vw;
-        /* height: 30vh; */
-        /* max-width: 700px; */
-        padding: 30px;
-        position: fixed;
-        top: 45%;
-        transform: translateY(-50%);
-        left:0;
-        right: 0;
-        margin: 0 auto;
-        border-radius: 4px;
-        box-shadow: 0px 0px 10px 10px blue;
-        text-align: center;
-        color: white;
-        transition: opacity 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    width: 50vw;
+    /* height: 30vh; */
+    /* max-width: 700px; */
+    padding: 30px;
+    position: fixed;
+    top: 45%;
+    transform: translateY(-50%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px 10px blue;
+    text-align: center;
+    color: white;
+    transition: opacity 250ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .gameboard {
     display: none;
 }
 
- .get-started {
+.get-started {
     margin-top: 25vh;
     background-color: red;
     color: white;
     font-family: 'Hurricane', cursive;
     font-family: 'Londrina Shadow', cursive;
     border-radius: 25px;
- }
+}
 
- .lets-play {
+.lets-play {
     background-color: red;
     color: white;
     font-family: 'Hurricane', cursive;
     font-family: 'Londrina Shadow', cursive;
     border-radius: 25px;
- }
-
-
+}
 
 h2 {
     font-family: 'Hurricane', cursive;

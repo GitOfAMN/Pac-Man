@@ -40,15 +40,17 @@ const setShownModal = (modalNumber) => {
 class Boundary {
     static width = 40
     static height = 40
-    constructor({ position }) {
+    constructor({ position, image }) {
         this.position = position
         this.width = 40
         this.height = 40
+        this.image = image
     }
 
     draw() {
-        context.fillStyle = 'blue'
-        context.fillRect(this.position.x, this.position.y, this.width, this.height)
+        // context.fillStyle = 'blue'
+        // context.fillRect(this.position.x, this.position.y, this.width, this.height)
+        context.drawImage(this.image, this.position.x, this.position.y)
     }
 }
 
@@ -114,16 +116,18 @@ class Pellet {
 
 const pellets = []
 const boundaries = []
-const ghosts = new Ghost({
-    position: {
-        x: Boundary.width * 6 + Boundary.width / 2,
-        y: Boundary.height + Boundary.height / 2
-    },
-    velocity: {
-        x: 0,
-        y: 0
-    }
-})
+const ghosts = [
+    new Ghost({
+        position: {
+            x: Boundary.width * 6 + Boundary.width / 2,
+            y: Boundary.height + Boundary.height / 2
+        },
+        velocity: {
+            x: 5,
+            y: 0
+        }
+    })
+]
 
 const player = new Player({
     position: {
@@ -155,18 +159,30 @@ let lastKey = ''
 let score = 0
 
 const map = [
-    ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-',],
-    ['-', '.', '.', '.', '.', '.', '.', '.', '.', '.', '-',],
-    ['-', '.', '-', '.', '-', '-', '-', '.', '-', '.', '-',],
-    ['-', '.', '.', '.', '.', '-', '.', '.', '.', '.', '-',],
-    ['-', '.', '-', '.', '.', '-', '.', '.', '-', '.', '-',],
-    ['-', '.', '-', '.', '.', '.', '.', '.', '-', '.', '-',],
-    ['-', '.', '-', '.', '.', '-', '.', '.', '-', '.', '-',],
-    ['-', '.', '.', '.', '.', '-', '.', '.', '.', '.', '-',],
-    ['-', '.', '-', '.', '-', '-', '-', '.', '-', '.', '-',],
-    ['-', '.', '.', '.', '.', '.', '.', '.', '.', '.', '-',],
-    ['-', '-', '-', '-', '-', '-', '-', '-', '-', '-', '-',]
+    ['1', '-', '-', '-', '-', '-', '-', '-', '-', '-', '2',],
+    ['|', '.', '.', '.', '.', '.', '.', '.', '.', '.', '|',],
+    ['|', '.', '-', '.', '-', '-', '-', '.', '-', '.', '|',],
+    ['|', '.', '.', '.', '.', '-', '.', '.', '.', '.', '|',],
+    ['|', '.', '-', '-', '.', '.', '.', '-', '-', '.', '|',],
+    ['|', '.', '.', '.', '.', '-', '.', '.', '.', '.', '|',],
+    ['|', '.', '-', '.', '-', '-', '-', '.', '-', '.', '|',],
+    ['|', '.', '.', '.', '.', '-', '.', '.', '.', '.', '|',],
+    ['|', '.', '-', '-', '.', '-', '.', '-', '-', '.', '|',],
+    ['|', '.', '.', '.', '.', '-', '.', '.', '.', '.', '|',],
+    ['|', '.', '-', '.', '-', '-', '-', '.', '-', '.', '|',],
+    ['|', '.', '.', '.', '.', '-', '.', '.', '.', '.', '|',],
+    ['|', '.', '-', '-', '.', '.', '.', '-', '-', '.', '|',],
+    ['|', '.', '.', '.', '.', '-', '.', '.', '.', '.', '|',],
+    ['|', '.', '-', '.', '-', '-', '-', '.', '-', '.', '|',],
+    ['|', '.', '.', '.', '.', '.', '.', '.', '.', '.', '|',],
+    ['4', '-', '-', '-', '-', '-', '-', '-', '-', '-', '3',]
 ]
+
+function createImage(src) {
+const image = new Image()
+image.src = src
+return image
+}
 
 map.forEach((row, i) => {
     row.forEach((symbol, j) => {
@@ -177,7 +193,63 @@ map.forEach((row, i) => {
                         position: {
                             x: Boundary.width * j,
                             y: Boundary.height * i
-                        }
+                        },
+                        image: createImage('./img/pipeHorizontal.png')
+                    })
+                )
+                break
+            case '|':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i
+                        },
+                        image: createImage('./img/pipeVertical.png')
+                    })
+                )
+                break
+                case '1':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i
+                        },
+                        image: createImage('./img/pipeCorner1.png')
+                    })
+                )
+                break
+                case '2':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i
+                        },
+                        image: createImage('./img/pipeCorner2.png')
+                    })
+                )
+                break
+                case '3':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i
+                        },
+                        image: createImage('./img/pipeCorner3.png')
+                    })
+                )
+                break
+                case '4':
+                boundaries.push(
+                    new Boundary({
+                        position: {
+                            x: Boundary.width * j,
+                            y: Boundary.height * i
+                        },
+                        image: createImage('./img/pipeCorner4.png')
                     })
                 )
                 break
@@ -334,29 +406,77 @@ function animate() {
     })
     player.update()
 
-    
-    // ghosts.forEach((ghost) => {
-    //     ghost.update()
+    ghosts.forEach((ghost) => {
+        ghost.update()
 
+        const collisions = []
+        boundaries.forEach((boundary) => {
+            if (
+                !collisions.includes('right') &&
+                circleCollidesWithRectangle({
+                    circle: {
+                        ...ghost, /* (...) spread operator usage */
+                        velocity: {
+                            x: 5,
+                            y: 0
+                        }
+                    },
+                    rectangle: boundary
+                })
+            ) {
+                collisions.push('right')
+            }
 
-    boundaries.forEach(boundary => {
-        if (
-            circleCollidesWithRectangle({
-                circle: {
-                    ...ghosts, /* (...) spread operator usage */
-                    velocity: {
-                        x: 0,
-                        y: -5
-                    }
-                },
-                rectangle: boundary
-            })
-        ) {
+            if (!collisions.includes('left') &&
+                circleCollidesWithRectangle({
+                    circle: {
+                        ...ghost, /* (...) spread operator usage */
+                        velocity: {
+                            x: -5,
+                            y: 0
+                        }
+                    },
+                    rectangle: boundary
+                })
+            ) {
+                collisions.push('left')
+            }
 
-        }
-            ghosts.update()
-    })  
-    }
+            if (
+                !collisions.includes('up') &&
+                circleCollidesWithRectangle({
+                    circle: {
+                        ...ghost, /* (...) spread operator usage */
+                        velocity: {
+                            x: 0,
+                            y: -5
+                        }
+                    },
+                    rectangle: boundary
+                })
+            ) {
+                collisions.push('up')
+            }
+
+            if (
+                !collisions.includes('down') &&
+                circleCollidesWithRectangle({
+                    circle: {
+                        ...ghost, /* (...) spread operator usage */
+                        velocity: {
+                            x: 0,
+                            y: 5
+                        }
+                    },
+                    rectangle: boundary
+                })
+            ) {
+                collisions.push('down')
+            }
+        })
+        console.log(collisions)
+    })
+}
 
 animate()
 
@@ -426,4 +546,4 @@ addEventListener('keyup', (evt) => {
             keys.arrowRight.pressed = false
             break
     }
-}) 
+})
